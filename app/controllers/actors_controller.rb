@@ -11,9 +11,9 @@ class ActorsController < ApplicationController
 
   def create
     actor = Actor.new(
-      title: params["title"],
-      year: params["year"],
-      plot: params["plot"],
+      first_name: params["first_name"],
+      last_name: params["last_name"],
+      known_for: params["known_for"],
     )
     actor.save
     render json: actor.as_json
@@ -21,24 +21,24 @@ class ActorsController < ApplicationController
 
   def show
     actor = Actor.find(params[:id])
-    render json: movie.as_json
+    render json: actor.as_json
   end
 
   def update
-    movie_id = params["id"]
-    movie = Movie.find_by(id: movie_id)
+    actor_id = params["id"]
+    actor = Actor.find_by(id: actor_id)
 
-    movie.title = params["title"] || movie.title
-    movie.year = params["year"] || movie.year
-    movie.plot = params["plot"] || movie.plot
+    actor.first_name = params["first_name"] || actor.first_name
+    actor.last_name = params["last_name"] || actor.last_name
+    actor.known_for = params["known_for"] || actor.known_for
 
-    movie.save
-    render json: movie.as_json
+    actor.save
+    render json: actor.as_json
   end
 
   def delete
-    movie = Movie.find(params[:id])
-    movie.destroy
-    render json: { message: "The movie has been deleted." }
+    actor = Actor.find(params[:id])
+    actor.destroy
+    render json: { message: "The actor has been deleted." }
   end
 end
