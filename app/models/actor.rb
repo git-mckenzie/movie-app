@@ -1,4 +1,5 @@
 class Actor < ApplicationRecord
+  belongs_to :movie #returns hash of one single movie
   #Make it so that a Actor must have a first_name with a length of at least 2.
   validates :first_name, length: { minimum: 2 }
   # Make it so that a Actor must have a last_name with a length of at least 2.
