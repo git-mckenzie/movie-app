@@ -1,4 +1,6 @@
 class MoviesController < ApplicationController
+  before_action :authenticate_user, except: [:index, :show]
+
   def index
     movies = Movie.where(english: true)
     render json: movies.as_json
@@ -14,7 +16,7 @@ class MoviesController < ApplicationController
 
     )
     movie.save
-    render json: movie.as_json
+    render json: movie
   end
 
   def show
@@ -23,7 +25,7 @@ class MoviesController < ApplicationController
   end
 
   def update
-    movie = Movie.find_by(id: movie_id)
+    movie = Movie.find_by(params[:id])
 
     movie.title = params["title"] || movie.title
     movie.year = params["year"] || movie.year
@@ -33,7 +35,7 @@ class MoviesController < ApplicationController
     movie_id = params["id"]
 
     movie.save
-    render json: movie.as_json
+    render json: movie
   end
 
   def delete
